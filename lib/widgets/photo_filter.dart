@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as imagelib;
 import 'package:path_provider/path_provider.dart';
 import 'package:photofilters/filters/filters.dart';
+import 'package:photofilters/utils/colors.dart';
+import 'package:photofilters/utils/font_Style.dart';
 
 class PhotoFilter extends StatelessWidget {
   final imagelib.Image image;
@@ -80,12 +83,16 @@ class PhotoFilterSelector extends StatefulWidget {
   State<StatefulWidget> createState() => PhotoFilterSelectorState();
 }
 
-class PhotoFilterSelectorState extends State<PhotoFilterSelector> {
+class PhotoFilterSelectorState extends State<PhotoFilterSelector>  with TickerProviderStateMixin{
   String? filename;
   Map<String, List<int>?> cachedFilters = {};
   Filter? filter;
   imagelib.Image? image;
   late bool loading;
+  static const Color thickBlue = Color(0xFF525FE1);
+  static const Color dark = Color(0xFF212529);
+  late TabController _tabController;
+  static const Color drWhite500 = Color(0xFFF7F7F8);
 
   @override
   void initState() {
@@ -94,6 +101,8 @@ class PhotoFilterSelectorState extends State<PhotoFilterSelector> {
     filter = widget.filters[0];
     filename = widget.filename;
     image = widget.image;
+    _tabController = TabController(length: 2, vsync: this);
+
   }
 
   @override
@@ -103,88 +112,153 @@ class PhotoFilterSelectorState extends State<PhotoFilterSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        // appBar: AppBar(
-        //   title: widget.title,
-        //   backgroundColor: widget.appBarColor,
-        //   actions: <Widget>[
-        //     loading
-        //         ? Container()
-        //         : IconButton(
-        //             icon: const Icon(Icons.check),
-        //             onPressed: () async {
-        //               setState(() {
-        //                 loading = true;
-        //               });
-        //               var imageFile = await saveFilteredImage();
-        //
-        //               // ignore: use_build_context_synchronously
-        //               Navigator.pop(context, {'image_filtered': imageFile});
-        //             },
-        //           )
-        //   ],
-        // ),
-        body: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: loading
-              ? widget.loader
-              : Column(
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            title: Text(
+              'پست جدید',
+              style:TextStyle(
+                  fontFamily: "Yekan",
+                  color: dark,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600),
+            ),
+            actions: [
+              CupertinoButton(
+                  child: Text(
+                    'ادامه',
+              style:  TextStyle(
+                  fontFamily: "Yekan",
+                  color: thickBlue,
+                  fontSize: 16,
+                  decoration: TextDecoration.underline,
+                  decorationColor: thickBlue,
+                  decorationStyle: TextDecorationStyle.solid,
+                  fontWeight: FontWeight.w500)
+          )
+                  ,
+                onPressed: () async {
+                  setState(() {
+                    loading = true;
+                  });
+                  var imageFile = await saveFilteredImage();
 
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 280,
-                      padding: const EdgeInsets.all(0.0),
-                      child: _buildFilteredImage(
-                        filter,
-                        image,
-                        filename,
-                      ),
-                    ),
-                    Spacer(),
-                    SizedBox(
-                      height: 188,
+                  // ignore: use_build_context_synchronously
+                  Navigator.pop(context, {'image_filtered': imageFile});
+                },
+              )
+            ],
+          ),
+          bottomNavigationBar: Container(
+            margin: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(48),
+                border: Border.all(color: drWhite500)),
+            child: TabBar(
+                controller: _tabController,
+                splashBorderRadius:
+                const BorderRadius.vertical(top: Radius.circular(29)),
+                overlayColor: MaterialStateProperty.all<Color>(
+                    CustomColors.fireDragonBright500.withOpacity(.1)),
+                labelColor: CustomColors.fireDragonBright500,
+                unselectedLabelColor: CustomColors.drWhite900,
+                labelStyle: CustomTextStyle.inlineSmall(fontSize: 14),
+                indicatorSize: TabBarIndicatorSize.tab,
+                indicatorWeight: 2,
+                indicatorPadding: const EdgeInsets.symmetric(horizontal: 40),
+                indicatorColor: CustomColors.fireDragonBright500,
+                tabs:  [Tab(text: 'فیلتر'), Tab(text: 'ویرایش')]),
+          ),
 
 
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 24.0,right: 24),
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: widget.filters.length,
-                          shrinkWrap: true,
+          // appBar: AppBar(
+          //   title: widget.title,
+          //   backgroundColor: widget.appBarColor,
+          //   actions: <Widget>[
+          //     loading
+          //         ? Container()
+          //         : IconButton(
+          //             icon: const Icon(Icons.check),
+          //             onPressed: () async {
+          //               setState(() {
+          //                 loading = true;
+          //               });
+          //               var imageFile = await saveFilteredImage();
+          //
+          //               // ignore: use_build_context_synchronously
+          //               Navigator.pop(context, {'image_filtered': imageFile});
+          //             },
+          //           )
+          //   ],
+          // ),
+          body: SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: loading
+                ? widget.loader
+                : Column(
 
 
-                          itemBuilder: (BuildContext context, int index) {
-                            return InkWell(
-                              child: Container(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    _buildFilterThumbnail(
-                                        widget.filters[index], image, filename),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Text(
-                                      widget.filters[index].name,
-                                    )
-                                  ],
-                                ),
-                              ),
-                              onTap: () => setState(() {
-                                filter = widget.filters[index];
-                              }),
-                            );
-                          },
+                    children: [
+                      SizedBox(
+                          height: 20),
+                      Container(
+                        width: double.infinity,
+                        height: 280,
+                        padding: const EdgeInsets.all(0.0),
+                        child: _buildFilteredImage(
+                          filter,
+                          image,
+                          filename,
                         ),
                       ),
-                    ),
+                      Spacer(),
+                      SizedBox(
+                        height: 188,
 
-                  ],
-                ),
+
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 24.0,right: 24),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: widget.filters.length,
+                            shrinkWrap: true,
+
+
+                            itemBuilder: (BuildContext context, int index) {
+                              return InkWell(
+                                child: Container(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      _buildFilterThumbnail(
+                                          widget.filters[index], image, filename),
+                                      const SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Text(
+                                        widget.filters[index].name,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                onTap: () => setState(() {
+                                  filter = widget.filters[index];
+                                }),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
+          ),
         ),
       ),
     );

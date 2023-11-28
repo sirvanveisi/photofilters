@@ -38,7 +38,7 @@ class MyAppState extends State<MyApp> {
             filters: presetFiltersList,
             filename: fileName,
             loader: const Center(child: CircularProgressIndicator()),
-            fit: BoxFit.contain,
+            fit: BoxFit.cover,
           ),
         ),
       );
@@ -55,9 +55,9 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Photo Filter Example'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Photo Filter Example'),
+      // ),
       body: Center(
         child: Container(
           child: imageFile == null
