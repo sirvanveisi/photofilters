@@ -19,12 +19,13 @@ class PhotoFilter extends StatelessWidget {
     required this.image,
     required this.filename,
     required this.filter,
-    this.fit = BoxFit.fill,
+    this.fit = BoxFit.cover,
     this.loader = const Center(child: CircularProgressIndicator()),
   });
 
   @override
   Widget build(BuildContext context) {
+
     return FutureBuilder<List<int>>(
       future: compute(applyFilter, <String, dynamic>{
         "filter": filter,
@@ -70,7 +71,7 @@ class PhotoFilterSelector extends StatefulWidget {
     required this.image,
     this.appBarColor = Colors.blue,
     this.loader = const Center(child: CircularProgressIndicator()),
-    this.fit = BoxFit.fill,
+    this.fit = BoxFit.cover,
     required this.filename,
     this.circleShape = false,
   }) : super(key: key);
@@ -130,53 +131,55 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
           child: loading
               ? widget.loader
               : Column(
-                  mainAxisSize: MainAxisSize.max,
+
                   children: [
-                    Expanded(
-                      flex: 4,
-                      child: Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        padding: const EdgeInsets.all(12.0),
-                        child: _buildFilteredImage(
-                          _filter,
-                          image,
-                          filename,
-                        ),
+                    Container(
+                      width: double.infinity,
+                      height: 280,
+                      padding: const EdgeInsets.all(0.0),
+                      child: _buildFilteredImage(
+                        _filter,
+                        image,
+                        filename,
                       ),
                     ),
-                    Expanded(
-                        flex: 2,
+                    Spacer(),
+                    SizedBox(
+                      height: 188,
 
-                        child: Container()),
-                    Expanded(
-                      flex: 2,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: widget.filters.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
-                            child: Container(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  _buildFilterThumbnail(
-                                      widget.filters[index], image, filename),
-                                  const SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    widget.filters[index].name,
-                                  )
-                                ],
+
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 24.0,right: 24),
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: widget.filters.length,
+                          shrinkWrap: true,
+
+
+                          itemBuilder: (BuildContext context, int index) {
+                            return InkWell(
+                              child: Container(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    _buildFilterThumbnail(
+                                        widget.filters[index], image, filename),
+                                    const SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Text(
+                                      widget.filters[index].name,
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                            onTap: () => setState(() {
-                              _filter = widget.filters[index];
-                            }),
-                          );
-                        },
+                              onTap: () => setState(() {
+                                _filter = widget.filters[index];
+                              }),
+                            );
+                          },
+                        ),
                       ),
                     ),
 
@@ -332,7 +335,7 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                     )
                   : Image.memory(
                       snapshot.data as dynamic,
-                      fit: BoxFit.contain,
+                      fit: BoxFit.cover,
                     );
           }
           // unreachable
