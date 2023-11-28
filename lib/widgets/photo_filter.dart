@@ -288,13 +288,13 @@ class PhotoFilterSelectorState extends State<PhotoFilterSelector> {
     return directory.path;
   }
 
-  Future<File> get _localFile async {
+  Future<File> get localFile async {
     final path = await _localPath;
     return File('$path/filtered_${filter?.name ?? "_"}_$filename');
   }
 
   Future<File> saveFilteredImage() async {
-    var imageFile = await _localFile;
+    var imageFile = await localFile;
     await imageFile.writeAsBytes(cachedFilters[filter?.name ?? "_"]!);
     return imageFile;
   }
