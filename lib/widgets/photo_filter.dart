@@ -282,14 +282,14 @@ class PhotoFilterSelectorState extends State<PhotoFilterSelector> {
     }
   }
 
-  Future<String> get _localPath async {
+  Future<String> get localPath async {
     final directory = await getApplicationDocumentsDirectory();
 
     return directory.path;
   }
 
   Future<File> get localFile async {
-    final path = await _localPath;
+    final path = await localPath;
     return File('$path/filtered_${filter?.name ?? "_"}_$filename');
   }
 
