@@ -104,26 +104,26 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: widget.title,
-          backgroundColor: widget.appBarColor,
-          actions: <Widget>[
-            loading
-                ? Container()
-                : IconButton(
-                    icon: const Icon(Icons.check),
-                    onPressed: () async {
-                      setState(() {
-                        loading = true;
-                      });
-                      var imageFile = await saveFilteredImage();
-
-                      // ignore: use_build_context_synchronously
-                      Navigator.pop(context, {'image_filtered': imageFile});
-                    },
-                  )
-          ],
-        ),
+        // appBar: AppBar(
+        //   title: widget.title,
+        //   backgroundColor: widget.appBarColor,
+        //   actions: <Widget>[
+        //     loading
+        //         ? Container()
+        //         : IconButton(
+        //             icon: const Icon(Icons.check),
+        //             onPressed: () async {
+        //               setState(() {
+        //                 loading = true;
+        //               });
+        //               var imageFile = await saveFilteredImage();
+        //
+        //               // ignore: use_build_context_synchronously
+        //               Navigator.pop(context, {'image_filtered': imageFile});
+        //             },
+        //           )
+        //   ],
+        // ),
         body: SizedBox(
           width: double.infinity,
           height: double.infinity,
