@@ -77,10 +77,10 @@ class PhotoFilterSelector extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _PhotoFilterSelectorState();
+  State<StatefulWidget> createState() => PhotoFilterSelectorState();
 }
 
-class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
+class PhotoFilterSelectorState extends State<PhotoFilterSelector> {
   String? filename;
   Map<String, List<int>?> cachedFilters = {};
   Filter? _filter;
@@ -298,6 +298,7 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
     await imageFile.writeAsBytes(cachedFilters[_filter?.name ?? "_"]!);
     return imageFile;
   }
+
 
   Widget _buildFilteredImage(
       Filter? filter, imagelib.Image? image, String? filename) {
