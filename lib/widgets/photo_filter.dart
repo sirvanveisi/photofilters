@@ -133,7 +133,7 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
-                      flex: 6,
+                      flex: 4,
                       child: Container(
                         width: double.infinity,
                         height: double.infinity,
@@ -145,6 +145,10 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                         ),
                       ),
                     ),
+                    Expanded(
+                        flex: 2,
+
+                        child: Container()),
                     Expanded(
                       flex: 2,
                       child: ListView.builder(
@@ -175,6 +179,7 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                         },
                       ),
                     ),
+
                   ],
                 ),
         ),
@@ -196,6 +201,20 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
             case ConnectionState.none:
             case ConnectionState.active:
             case ConnectionState.waiting:
+            return Container(
+              width: 120.0, // Set your desired width
+              height: 120.0, // Set your desired height
+
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0), // Adjust the borderRadius as needed
+                color: Colors.white,
+
+              ),
+              child: Center(
+                child: widget.loader,
+              ),
+            );
+
               return CircleAvatar(
                 radius: 50.0,
                 backgroundColor: Colors.white,
@@ -208,25 +227,55 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                 return Center(child: Text('Error: ${snapshot.error}'));
               }
               cachedFilters[filter.name] = snapshot.data;
-              return CircleAvatar(
-                radius: 50.0,
-                backgroundImage: MemoryImage(
-                  snapshot.data as dynamic,
+              return Container(
+                width: 120.0, // Set your desired width
+                height: 120.0, // Set your desired height
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0), // Adjust the borderRadius as needed
+                  image: DecorationImage(
+                    image:  MemoryImage(
+                      snapshot.data as dynamic,
+                    ),
+                    fit: BoxFit.cover, // Adjust the BoxFit property as needed
+                  ),
                 ),
-                backgroundColor: Colors.white,
               );
+
+              // return CircleAvatar(
+              //   radius: 50.0,
+              //   backgroundImage: MemoryImage(
+              //     snapshot.data as dynamic,
+              //   ),
+              //   backgroundColor: Colors.white,
+              // );
           }
           // unreachable
         },
       );
     } else {
-      return CircleAvatar(
-        radius: 50.0,
-        backgroundImage: MemoryImage(
-          cachedFilters[filter.name] as dynamic,
+
+      return Container(
+        width: 120.0, // Set your desired width
+        height: 120.0, // Set your desired height
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0), // Adjust the borderRadius as needed
+          image: DecorationImage(
+            image:  MemoryImage(
+              cachedFilters[filter.name] as dynamic,
+            ),
+            fit: BoxFit.cover, // Adjust the BoxFit property as needed
+          ),
         ),
-        backgroundColor: Colors.white,
       );
+
+
+      // return CircleAvatar(
+      //   radius: 50.0,
+      //   backgroundImage: MemoryImage(
+      //     cachedFilters[filter.name] as dynamic,
+      //   ),
+      //   backgroundColor: Colors.white,
+      // );
     }
   }
 
