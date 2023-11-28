@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  image_picker: ^0.8.7+5
+  image_picker: ^1.0.4
   path_provider: ^2.0.15
   photofilters:
     path: ../
