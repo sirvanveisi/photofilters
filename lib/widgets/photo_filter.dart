@@ -83,7 +83,7 @@ class PhotoFilterSelector extends StatefulWidget {
 class PhotoFilterSelectorState extends State<PhotoFilterSelector> {
   String? filename;
   Map<String, List<int>?> cachedFilters = {};
-  Filter? _filter;
+  Filter? filter;
   imagelib.Image? image;
   late bool loading;
 
@@ -91,7 +91,7 @@ class PhotoFilterSelectorState extends State<PhotoFilterSelector> {
   void initState() {
     super.initState();
     loading = false;
-    _filter = widget.filters[0];
+    filter = widget.filters[0];
     filename = widget.filename;
     image = widget.image;
   }
@@ -138,7 +138,7 @@ class PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                       height: 280,
                       padding: const EdgeInsets.all(0.0),
                       child: _buildFilteredImage(
-                        _filter,
+                        filter,
                         image,
                         filename,
                       ),
@@ -175,7 +175,7 @@ class PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                                 ),
                               ),
                               onTap: () => setState(() {
-                                _filter = widget.filters[index];
+                                filter = widget.filters[index];
                               }),
                             );
                           },
@@ -290,12 +290,12 @@ class PhotoFilterSelectorState extends State<PhotoFilterSelector> {
 
   Future<File> get _localFile async {
     final path = await _localPath;
-    return File('$path/filtered_${_filter?.name ?? "_"}_$filename');
+    return File('$path/filtered_${filter?.name ?? "_"}_$filename');
   }
 
   Future<File> saveFilteredImage() async {
     var imageFile = await _localFile;
-    await imageFile.writeAsBytes(cachedFilters[_filter?.name ?? "_"]!);
+    await imageFile.writeAsBytes(cachedFilters[filter?.name ?? "_"]!);
     return imageFile;
   }
 
