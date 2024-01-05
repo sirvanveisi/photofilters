@@ -140,7 +140,7 @@ class PhotoFilterSelectorState extends State<PhotoFilterSelector>
 
               backgroundColor: Colors.white,
               title: Text(
-                'پست جدید',
+                'ویرایش تصویر',
                 style: TextStyle(
                     fontFamily: "Yekan",
                     color: dark,
@@ -517,7 +517,7 @@ class PhotoFilterSelectorState extends State<PhotoFilterSelector>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Image.asset(
-                                  "assets/images/adjust.png",
+                                  "assets/images/sun.png",
                                   fit: BoxFit.cover,
                                   width: 48,
                                   height: 48,

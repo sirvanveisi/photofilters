@@ -6,7 +6,8 @@ import 'package:photofilters/filters/subfilters.dart';
 
 // NoFilter: No filter
 class NoFilter extends ColorFilter {
-  NoFilter() : super(name: "No Filter");
+  // NoFilter() : super(name: "No Filter");
+  NoFilter() : super(name: "بدون فیلتر");
 
   @override
   void apply(Uint8List pixels, int width, int height) {
@@ -24,13 +25,15 @@ class ClarendonFilter extends ColorFilter {
 }
 
 class AddictiveRedFilter extends ColorFilter {
-  AddictiveRedFilter() : super(name: "AddictiveRed") {
+  // AddictiveRedFilter() : super(name: "AddictiveRed") {
+  AddictiveRedFilter() : super(name: "قرمز اعتیاد آور") {
     subFilters.add(AddictiveColorSubFilter(50, 0, 0));
   }
 }
 
 class AddictiveBlueFilter extends ColorFilter {
-  AddictiveBlueFilter() : super(name: "AddictiveBlue") {
+  // AddictiveBlueFilter() : super(name: "AddictiveBlue") {
+  AddictiveBlueFilter() : super(name: "آبی اعتیاد آور") {
     subFilters.add(AddictiveColorSubFilter(0, 0, 50));
   }
 }
@@ -104,7 +107,8 @@ class LudwigFilter extends ColorFilter {
 
 // Aden: This filter gives a blue/pink natural look
 class AdenFilter extends ColorFilter {
-  AdenFilter() : super(name: "Aden") {
+  // AdenFilter() : super(name: "Aden") {
+  AdenFilter() : super(name: "باغ آسمانی") {
     subFilters.add(RGBOverlaySubFilter(228, 130, 225, 0.13));
     subFilters.add(SaturationSubFilter(-0.2));
   }
@@ -119,7 +123,8 @@ class PerpetuaFilter extends ColorFilter {
 
 // Amaro: Adds light to an image, with the focus on the centre
 class AmaroFilter extends ColorFilter {
-  AmaroFilter() : super(name: "Amaro") {
+  // AmaroFilter() : super(name: "Amaro") {
+  AmaroFilter() : super(name: "آمارو") {
     subFilters.add(SaturationSubFilter(0.3));
     subFilters.add(BrightnessSubFilter(0.15));
   }
@@ -362,42 +367,42 @@ List<Filter> presetFiltersList = [
   AddictiveRedFilter(),
   AdenFilter(),
   AmaroFilter(),
-  AshbyFilter(),
-  BrannanFilter(),
-  BrooklynFilter(),
-  CharmesFilter(),
-  ClarendonFilter(),
-  CremaFilter(),
-  DogpatchFilter(),
-  EarlybirdFilter(),
-  F1977Filter(),
-  GinghamFilter(),
-  GinzaFilter(),
-  HefeFilter(),
-  HelenaFilter(),
-  HudsonFilter(),
-  InkwellFilter(),
-  JunoFilter(),
-  KelvinFilter(),
-  LarkFilter(),
-  LoFiFilter(),
-  LudwigFilter(),
-  MavenFilter(),
-  MayfairFilter(),
-  MoonFilter(),
-  NashvilleFilter(),
-  PerpetuaFilter(),
-  ReyesFilter(),
-  RiseFilter(),
-  SierraFilter(),
-  SkylineFilter(),
-  SlumberFilter(),
-  StinsonFilter(),
-  SutroFilter(),
-  ToasterFilter(),
-  ValenciaFilter(),
-  VesperFilter(),
-  WaldenFilter(),
-  WillowFilter(),
-  XProIIFilter(),
+  // AshbyFilter(),
+  // BrannanFilter(),
+  // BrooklynFilter(),
+  // CharmesFilter(),
+  // ClarendonFilter(),
+  // CremaFilter(),
+  // DogpatchFilter(),
+  // EarlybirdFilter(),
+  // F1977Filter(),
+  // GinghamFilter(),
+  // GinzaFilter(),
+  // HefeFilter(),
+  // HelenaFilter(),
+  // HudsonFilter(),
+  // InkwellFilter(),
+  // JunoFilter(),
+  // KelvinFilter(),
+  // LarkFilter(),
+  // LoFiFilter(),
+  // LudwigFilter(),
+  // MavenFilter(),
+  // MayfairFilter(),
+  // MoonFilter(),
+  // NashvilleFilter(),
+  // PerpetuaFilter(),
+  // ReyesFilter(),
+  // RiseFilter(),
+  // SierraFilter(),
+  // SkylineFilter(),
+  // SlumberFilter(),
+  // StinsonFilter(),
+  // SutroFilter(),
+  // ToasterFilter(),
+  // ValenciaFilter(),
+  // VesperFilter(),
+  // WaldenFilter(),
+  // WillowFilter(),
+  // XProIIFilter(),
 ];
