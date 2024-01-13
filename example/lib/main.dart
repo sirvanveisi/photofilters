@@ -28,7 +28,7 @@ class MyAppState extends State<MyApp> {
       imageFile = File(pickedFile.path);
       fileName = basename(imageFile!.path);
       var image = imagelib.decodeImage(await imageFile!.readAsBytes());
-      image = imagelib.copyResize(image!, width: 600);
+      // image = imagelib.copyResize(image!, width: 2000);
       Map imagefile = await Navigator.push(
         context,
         MaterialPageRoute(
