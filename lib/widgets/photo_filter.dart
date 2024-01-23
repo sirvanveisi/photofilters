@@ -265,10 +265,15 @@ class PhotoFilterSelectorState extends State<PhotoFilterSelector>
                                                     image,
                                                     filename),
                                                 const SizedBox(
-                                                  height: 5.0,
+                                                  height: 12.0,
                                                 ),
                                                 Text(
                                                   widget.filters[index].name,
+                                                  style: TextStyle(
+                                                      fontFamily: "Yekan",
+                                                      color: Colors.black87,
+                                                      fontSize: 16,
+                                                     ),
                                                 )
                                               ],
                                             ),
@@ -414,35 +419,35 @@ class PhotoFilterSelectorState extends State<PhotoFilterSelector>
                     height: 100,
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomButton(
-                        onPressed: () {
-                          sliderWidget = false;
-                          modifiedImageRelease = null;
-                          _brightnessValue = 0;
-                          _currentSliderValue = 0;
-
-                          setState(() {});
-                        },
-                        title: 'لغو کردن',
-                        width: MediaQuery.of(context).size.width * 0.42,
-                        primary: false,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      CustomButton(
-                        onPressed: () {
-                          sliderWidget = false;
-                          setState(() {});
-                        },
-                        title: 'تایید',
-                        width: MediaQuery.of(context).size.width * 0.42,
-                      ),
-                    ],
-                  )
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     CustomButton(
+                  //       onPressed: () {
+                  //         sliderWidget = false;
+                  //         modifiedImageRelease = null;
+                  //         _brightnessValue = 0;
+                  //         _currentSliderValue = 0;
+                  //
+                  //         setState(() {});
+                  //       },
+                  //       title: 'لغو کردن',
+                  //       width: MediaQuery.of(context).size.width * 0.42,
+                  //       primary: false,
+                  //     ),
+                  //     SizedBox(
+                  //       width: 5,
+                  //     ),
+                  //     CustomButton(
+                  //       onPressed: () {
+                  //         sliderWidget = false;
+                  //         setState(() {});
+                  //       },
+                  //       title: 'تایید',
+                  //       width: MediaQuery.of(context).size.width * 0.42,
+                  //     ),
+                  //   ],
+                  // )
                 ],
               )
             : Padding(

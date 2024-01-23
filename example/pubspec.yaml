@@ -26,4 +26,11 @@ flutter:
   assets:
     - assets/images/gifloader.gif
     - assets/images/adjust.png
-    - assets/images/sun.png/
+    - assets/images/sun.png
+    - assets/images/adjust.png
+    - assets/fonts/Yekan.ttf
+
+  fonts:
+    - family: Yekan
+      fonts:
+        - asset: assets/fonts/Yekan.ttf
